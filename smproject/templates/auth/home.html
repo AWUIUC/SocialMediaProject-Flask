@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>This is the restricted home page</h1>
+
+<p>Potential friends</p>
+<table>
+  <tr>
+    <th>Name of potential friend</th>
+    <th>Profile link</th>
+  </tr>
+  {% for key, value in potential_friends_dictionary.items() %}
+  <tr>
+    <td>{{ key }}</td>
+    <td><a href = "{{ url_for('view_profile', user_id = value) }}">View profile</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+
+
+<p>Links to: Update profile and/or password link</p>
+<p><a href="{{ url_for('update_profile') }}">Update profile link</a></p>
+<p><a href="{{ url_for('reset_request') }}">Update password link</a></p>
+
+<br><br><br>
+
+<p>Link to: Search/searchbar for friends by first and last name, OR by email</p>
+<p><a href="{{ url_for('search') }}">Search for users link</a></p>
+
+<br><br><br>
+
+<p>Link to: Manage friendships and friend requests</p>
+<p><a href= "{{ url_for('view_friends') }}">Manage friends password link</a></p>
+
+<br><br><br>
+
+<p>Chat with friends link here</p>
+<p><a href= "{{ url_for('view_chat') }}">Chat with friends link</a></p>
+
+{% endblock %}

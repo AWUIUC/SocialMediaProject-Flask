@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Profile of {{ other_user.email }}</h1>
+
+{% if current_user.email == other_user.email %}
+  <p>You can not add yourself as a friend</p>
+{% elif already_added == True %}
+  <p>You already sent this user a friend request or already are friends.</p>
+{% else %}
+  <p><a href="{{ url_for('add_friend', user_id = other_user.id) }}">Click here to send friend request?</a></p>
+{% endif %}
+
+<img class="rounded-circle account-img" src="{{ image_file }}">
+<p>Interests and hobbies: {{ other_user.interests_and_hobbies }}</p>
+<p>Courses: {{ other_user.courses }}</p>
+<p>Major: {{ other_user.major }}</p>
+{% endblock %}

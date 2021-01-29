@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Search for people here!</h1>
+    <form method="POST" action="{{ url_for('search') }}">
+        {{ search_email_form.csrf_token }}
+        {{ search_email_form.email.label}}
+        {{ search_email_form.email }}
+        {% if search_email_form.email.errors %}
+          {% for error in search_email_form.email.errors %}
+              <span>{{ error }}</span>
+          {% endfor %}
+        {% endif %}
+        <input type="submit" value="Search by email">
+    </form>
+
+    <br><br>
+
+    <form method="POST" action="{{ url_for('search') }}">
+        {{ search_name_form.csrf_token }}
+        {{ search_name_form.first_name.label}}
+        {{ search_name_form.first_name }}
+        {% if search_name_form.first_name.errors %}
+          {% for error in search_name_form.first_name.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        {% endif %}
+        {{ search_name_form.last_name.label}}
+        {{ search_name_form.last_name }}
+        {% if search_name_form.last_name.errors %}
+          {% for error in search_name_form.last_name.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        {% endif %}
+        <input type="submit" value="Search by name">
+    </form>
+
+    <br><br>
+    <!-- NOTE TO SELF: NEED TO FIX HOW ERRORS ARE DISPLAYED FOR SEARCHES -->
+
+
+    {% if queried_users %}
+    <p>Search results:</p>
+    <table>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Profile link</th>
+      </tr>
+      {% for user in queried_users %}
+      <tr>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td><a href = "{{ url_for('view_profile', user_id = user.id) }}">View profile</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+
+  </body>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<body>
+  <ul id = "messages_list">
+    {% for list in initial_messages %}
+      <li>Sender: {{list[0]}}</li>
+      <li>To: {{list[1]}}</li>
+      <li>Message: {{list[2]}}</li>
+      <li><br></li>
+    {% endfor %}
+  </ul>
+
+  <!-- Get Username -->
+  <script type = "text/javascript">
+    const user_email = `{{ user_email }}`;
+  </script>
+
+  <nav id="sidebar">
+    <h4>Friend Selection</h4>
+    {% for email in friend_list %}
+      <p class="select_recipient_button">{{ email }}</p>
+    {% endfor %}
+  </nav>
+
+  Message: <input type="text" id="private_message" maxlength="2000">
+  <button id="send_private_message">Send PM</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+
+  <script src="{{ url_for('static', filename='scripts/private_chat_socketio.js') }}"></script>
+</body>
+
+{% endblock %}

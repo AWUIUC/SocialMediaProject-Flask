@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p>Manage friend requests you sent</p>
+<table>
+  <tr>
+    <th>ID of friend you sent request to</th>
+    <th>Profile link</th>
+    <th>Cancel link</th>
+  </tr>
+  {% for obj in sent_friend_requests %}
+  <tr>
+    <td>{{ obj.friend_two }}</td>
+    <td><a href = "{{ url_for('view_profile', user_id = obj.friend_two) }}">View profile</a></td>
+    <td><a href = "{{ url_for('cancel_request', user_id = obj.friend_two) }}">Cancel request</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<p></p>
+<p>Manage friend requests you received</p>
+<table>
+  <tr>
+    <th>ID of friend sent you request</th>
+    <th>Profile link</th>
+    <th>Accept request</th>
+    <th>Decline request</th>
+  </tr>
+  {% for obj in received_friend_requests %}
+  <tr>
+    <td>{{ obj.friend_one }}</td>
+    <td><a href = "{{ url_for('view_profile', user_id = obj.friend_one) }}">View profile</a></td>
+    <td><a href = "{{ url_for('accept_request', user_id = obj.friend_one) }}">Accept request</a></td>
+    <td><a href = "{{ url_for('decline_request', user_id = obj.friend_one) }}">Decline request</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<p></p>
+<p>Manage your current friend list</p>
+<table>
+  <tr>
+    <th>ID of your friend</th>
+    <th>Profile link</th>
+    <th>Link to un-friend</th>
+  </tr>
+  {% for obj in confirmed_friends_pt1 %}
+  <tr>
+    <td>{{ obj.friend_two }}</td>
+    <td><a href = "{{ url_for('view_profile', user_id = obj.friend_two) }}">View profile</a></td>
+    <td><a href = "{{ url_for('remove_friend', user_id = obj.friend_two) }}">Remove friend?</a></td>
+  </tr>
+  {% endfor %}
+
+  {% for obj in confirmed_friends_pt2 %}
+  <tr>
+    <td>{{ obj.friend_one }}</td>
+    <td><a href = "{{ url_for('view_profile', user_id = obj.friend_one) }}">View profile</a></td>
+    <td><a href = "{{ url_for('remove_friend', user_id = obj.friend_one) }}">Remove friend?</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+{% endblock %}
